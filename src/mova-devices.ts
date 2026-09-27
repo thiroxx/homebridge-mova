@@ -13,6 +13,8 @@ export const TESTED_MOVA_MODELS = [
   // actions and map format of the E40 Ultra; not yet confirmed by the plugin
   // author with real hardware.
   'mova.vacuum.r5766q',
+  'mova.vacuum.r5765h',
+  'mova.vacuum.r5766',
 ] as const;
 
 export interface MovaModelCandidate {
@@ -23,9 +25,6 @@ export interface MovaModelCandidate {
 export const MODEL_CANDIDATE_SOURCE_URL =
   'https://github.com/F1nn-T/dreame-ha';
 
-// These identifiers are community-sourced compatibility candidates. They
-// have not been verified with this plugin and must remain behind the existing
-// diagnostic/experimental safety gate until tested with real hardware.
 export const KNOWN_UNTESTED_MOVA_MODELS = [
   {
     name: 'MOVA P50 Pro Ultra',
@@ -144,14 +143,6 @@ export const KNOWN_UNTESTED_MOVA_MODELS = [
       'mova.vacuum.r9540n',
       'mova.vacuum.r9540u',
     ],
-  },
-  {
-    name: 'MOVA Z70 Pro',
-    models: ['mova.vacuum.r5766'],
-  },
-  {
-    name: 'MOVA Z70 Ultra Roller Complete',
-    models: ['mova.vacuum.r5765h'],
   },
   {
     name: 'MOVA S70 Roller',
