@@ -5,7 +5,7 @@ import {
   decodeMovaCleaningMode,
   mapMovaFaultToOperationalError,
   MOVA_CLEANING_MODES,
-} from '../dist/mova-matter.js';
+} from '../dist/mova-matter-state.js';
 
 test('veröffentlicht Saugen, Wischen, Kombi und Tiefenreinigung', () => {
   assert.deepEqual(
