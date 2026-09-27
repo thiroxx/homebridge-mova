@@ -9,6 +9,10 @@ export const MODEL_SUPPORT_REQUEST_URL =
 export const TESTED_MOVA_MODELS = [
   'mova.vacuum.r9504a',
   'mova.vacuum.r5732a',
+  // MOVA Z70 Ultra Roller Complete. Expected to share the MIoT properties,
+  // actions and map format of the E40 Ultra; not yet confirmed by the plugin
+  // author with real hardware.
+  'mova.vacuum.r5766q',
 ] as const;
 
 export interface MovaModelCandidate {

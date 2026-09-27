@@ -14,6 +14,15 @@ a native Matter robotic vacuum cleaner.
 The plugin has been developed and tested with the **MOVA E40 Ultra** using the
 device models `mova.vacuum.r9504a` and `mova.vacuum.r5732a`.
 
+The **MOVA Z70 Ultra Roller Complete** with the device model
+`mova.vacuum.r5766q` is enabled as well. It is expected to use the same MOVA
+cloud properties, commands and map format as the E40 Ultra, but this has not
+yet been confirmed by the plugin author with real hardware. Supervise the
+first runs. Roller-specific station features such as roller washing
+temperature or drying are not exposed; Apple Home controls start, pause,
+return to dock, the three main cleaning modes and room selection. Please
+report problems with a sanitized log.
+
 Other `mova.vacuum.*` models are detected but remain disabled by default until
 their commands have been confirmed with real hardware. See
 [Testing another MOVA model](#testing-another-mova-model) to help add one.
@@ -45,7 +54,7 @@ Being listed here does not enable a model or claim compatibility.
 | MOVA Z60 Pro | `r9473`, `r2561` |
 | MOVA Z60 Ultra Roller Complete | `r9540a`, `r9540h`, `r9540k`, `r9540n`, `r9540u` |
 | MOVA Z70 Pro | `r5766` |
-| MOVA Z70 Ultra Roller Complete | `r5765h` |
+| MOVA Z70 Ultra Roller Complete | `r5765h` (`r5766q` is enabled, see above) |
 | MOVA S70 Roller | `r5769a`, `r5769f`, `r5769g`, `r5769h`, `r5769q`, `r5769t` |
 | MOVA S70 Ultra Roller | `r5770a`, `r5770g`, `r5770h`, `r5770t`, `r590qf` |
 | MOVA E20s Pro | `r2569c` |

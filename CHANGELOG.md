@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Enable the MOVA Z70 Ultra Roller Complete (`mova.vacuum.r5766q`) without
+  experimental model support; it is expected to use the same cloud
+  properties, commands and map format as the MOVA E40 Ultra (hardware
+  confirmation pending)
+- Keep the MOVA Z70 Pro (`mova.vacuum.r5766`) and other Z70 variants as
+  unverified candidates
+
 ## 1.2.0-beta.2 - 2026-08-31
 
 - Add configurable MOVA cloud region, account country and request language

@@ -317,3 +317,22 @@ test('platform passes Canadian config, logs safe errors and keeps V50 diagnostic
   assert.ok(logs.some(line => line.includes('Bereinigter MOVA-Diagnosebericht')));
   assert.equal(calls.length, 4);
 });
+
+test('platform selects the Z70 Ultra Roller Complete without experimental model support', async t => {
+  const calls = stubHttp(t, url => {
+    if (url.endsWith('/oauth/token')) {
+      return { data: { access_token: 'PRIVATE' } };
+    }
+    if (url.endsWith('/device/listV2')) {
+      return { data: { data: { page: { records: [{ did: 'PRIVATE', model: 'mova.vacuum.r5766q' }] } } } };
+    }
+    assert.fail('No device command expected before Matter publication');
+  });
+  const { instance, logs } = platform({ username: 'PRIVATE', password: 'PRIVATE' });
+  await instance.cloudReady;
+  assert.equal(instance.selectedDevice?.model, 'mova.vacuum.r5766q');
+  assert.equal(instance.selectedDeviceIsExperimental, false);
+  assert.ok(logs.some(line => line.includes('Unterstützter MOVA-Saugroboter ausgewählt')));
+  assert.equal(logs.some(line => line.includes('Nicht getestetes MOVA-Modell')), false);
+  assert.equal(calls.length, 2);
+});

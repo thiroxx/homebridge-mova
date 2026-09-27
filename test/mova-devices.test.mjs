@@ -14,6 +14,7 @@ import {
 test('unterscheidet getestete, unbekannte und fremde Gerätemodelle', () => {
   assert.equal(isTestedMovaModel('mova.vacuum.r9504a'), true);
   assert.equal(isTestedMovaModel('mova.vacuum.r5732a'), true);
+  assert.equal(isTestedMovaModel('mova.vacuum.r5766q'), true);
   assert.equal(isTestedMovaModel('mova.vacuum.unknown'), false);
   assert.equal(isMovaVacuumModel('mova.vacuum.unknown'), true);
   assert.equal(isMovaVacuumModel('mova.washer.unknown'), false);
@@ -35,6 +36,16 @@ test('ordnet bekannte Community-Kandidaten zu, ohne sie freizuschalten', () => {
     undefined,
   );
   assert.equal(isTestedMovaModel('mova.vacuum.r5730c'), false);
+});
+
+test('schaltet den Z70 Ultra Roller Complete frei, ohne den Z70 Pro zu verwechseln', () => {
+  assert.equal(isTestedMovaModel('mova.vacuum.r5766q'), true);
+  assert.equal(getKnownUntestedMovaModel('mova.vacuum.r5766q'), undefined);
+  assert.equal(isTestedMovaModel('mova.vacuum.r5766'), false);
+  assert.equal(
+    getKnownUntestedMovaModel('mova.vacuum.r5766')?.name,
+    'MOVA Z70 Pro',
+  );
 });
 
 test('Kandidatenkennungen sind eindeutig und überschneiden sich nicht mit getesteten Modellen', () => {
