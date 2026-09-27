@@ -14,3 +14,16 @@ test('Standardmodus verwendet weiterhin einheitliche Werte', () => {
     ],
   );
 });
+
+test('übernimmt Saugstufe und Wassermenge aus der Cloud', () => {
+  assert.deepEqual(
+    createStandardRoomCleaningSelections([3], {
+      suctionLevel: 2,
+      waterVolume: 3,
+      cleaningTimes: 2,
+    }),
+    [
+      [3, 2, 2, 3, 1],
+    ],
+  );
+});

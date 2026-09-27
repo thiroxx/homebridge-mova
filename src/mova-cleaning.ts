@@ -6,8 +6,15 @@ export type MovaRoomCleaningSelection = readonly [
   order: number,
 ];
 
+export interface MovaRoomCleaningOptions {
+  cleaningTimes?: number;
+  suctionLevel?: number;
+  waterVolume?: number;
+}
+
 export function createStandardRoomCleaningSelections(
   roomIds: readonly number[],
+  options: MovaRoomCleaningOptions = {},
 ): MovaRoomCleaningSelection[] {
   const uniqueRoomIds = [...new Set(roomIds)]
     .filter(roomId => Number.isInteger(roomId) && roomId > 0);
@@ -18,7 +25,17 @@ export function createStandardRoomCleaningSelections(
     );
   }
 
+  const cleaningTimes = options.cleaningTimes ?? 1;
+  const suctionLevel = options.suctionLevel ?? 0;
+  const waterVolume = options.waterVolume ?? 0;
+
   return uniqueRoomIds.map(
-    (roomId, index) => [roomId, 1, 0, 0, index + 1],
+    (roomId, index) => [
+      roomId,
+      cleaningTimes,
+      suctionLevel,
+      waterVolume,
+      index + 1,
+    ],
   );
 }
