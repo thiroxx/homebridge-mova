@@ -1,6 +1,21 @@
-# 🏠 Haushaltsplaner iOS App
+# Haushaltsplaner iOS App
+
+**Getrennt vom Homebridge-Plugin** - Eigenständiges iOS-Projekt
+
+> ⚠️ **Hinweis:** Diese iOS-App ist ein separates Projekt und hat keine Verbindung zum Homebridge MOVA Plugin im Root-Verzeichnis.
+
+---
 
 Eine moderne iOS-App für gemeinsame Haushaltsplanung mit iCloud Family Sharing, entwickelt mit SwiftUI.
+
+## 🚀 Schnellstart
+
+```bash
+cd HaushaltsPlaner
+open HaushaltsPlaner.xcodeproj
+```
+
+Siehe [QUICKSTART.md](QUICKSTART.md) für detaillierte Setup-Anweisungen.
 
 ## ✨ Features
 
@@ -64,6 +79,7 @@ Eine moderne iOS-App für gemeinsame Haushaltsplanung mit iCloud Family Sharing,
 - ✅ Siri Shortcuts Integration
 - ✅ Push-Benachrichtigungen für Updates
 - ✅ Moderne Async/Await API-Nutzung
+- ✅ Auto-Completion mit lokaler ML
 
 ## 📱 Anforderungen
 
@@ -118,6 +134,7 @@ Erstelle folgende Record Types im CloudKit Dashboard:
 - `name` (String, Queryable, Sortable)
 - `quantity` (String)
 - `category` (String, Queryable)
+- `priority` (String, Queryable)
 - `isPurchased` (Int64, Queryable)
 - `addedBy` (String, Queryable)
 - `addedByName` (String)
@@ -137,65 +154,15 @@ Erstelle folgende Record Types im CloudKit Dashboard:
 - Wähle ein Gerät oder Simulator
 - Drücke Cmd+R zum Ausführen
 
-## 📖 Verwendung
+## 📖 Dokumentation
 
-### Aufgaben erstellen
-1. Öffne den "Aufgaben"-Tab
-2. Tippe auf das "+" Symbol
-3. Gib Titel, Beschreibung und Priorität ein
-4. Weise die Aufgabe optional einem Familienmitglied zu
-5. Setze optional ein Fälligkeitsdatum
-6. Tippe auf "Hinzufügen"
+Vollständige Dokumentation verfügbar:
 
-### Einkaufsartikel hinzufügen
-1. Öffne den "Einkaufen"-Tab
-2. Tippe auf das "+" Symbol
-3. Gib Name, Menge und Kategorie ein
-4. Tippe auf "Hinzufügen"
-
-### Familie einladen
-1. Öffne den "Familie"-Tab
-2. Tippe auf "Familie einladen"
-3. Teile den iCloud-Link über Nachrichten, Mail, etc.
-4. Familienmitglieder können durch Antippen beitreten
-
-### Siri-Befehle verwenden
-Nach der ersten Verwendung in der App sind folgende Befehle verfügbar:
-
-**Aufgaben:**
-- "Hey Siri, füge eine Aufgabe hinzu"
-- "Hey Siri, füge 'Wäsche waschen' zur Aufgabenliste hinzu"
-
-**Einkaufsliste:**
-- "Hey Siri, füge Milch zur Einkaufsliste hinzu"
-- "Hey Siri, setze Brot auf die Einkaufsliste"
-
-## 🔧 Projektstruktur
-
-```
-HaushaltsPlaner/
-├── HaushaltsPlaner.swift          # App Entry Point
-├── ContentView.swift              # Main Tab View
-├── Models/
-│   ├── Task.swift                 # Aufgaben-Modell
-│   ├── ShoppingItem.swift         # Einkaufsartikel-Modell
-│   └── FamilyMember.swift         # Familienmitglieder-Modell
-├── Views/
-│   ├── TasksView.swift           # Aufgaben-Übersicht
-│   ├── TaskRowView.swift         # Aufgaben-Zelle
-│   ├── AddTaskView.swift         # Aufgabe hinzufügen
-│   ├── ShoppingView.swift        # Einkaufsliste
-│   ├── ShoppingItemRowView.swift # Einkaufsartikel-Zelle
-│   ├── AddShoppingItemView.swift # Artikel hinzufügen
-│   └── FamilyView.swift          # Familien-Verwaltung
-├── Services/
-│   └── CloudKitManager.swift     # CloudKit Service
-├── Intents/
-│   ├── IntentHandler.swift       # Siri Intent Handler
-│   └── Intents.intentdefinition  # Intent Definitionen
-├── Info.plist                     # App Konfiguration
-└── HaushaltsPlaner.entitlements  # Capabilities
-```
+- **[QUICKSTART.md](QUICKSTART.md)** - 5-Minuten-Setup-Guide
+- **[CLOUDKIT_SETUP.md](CLOUDKIT_SETUP.md)** - Detaillierte CloudKit-Konfiguration
+- **[SIRI_SHORTCUTS.md](SIRI_SHORTCUTS.md)** - HomePod & Siri Integration
+- **[AUTO_COMPLETION.md](AUTO_COMPLETION.md)** - Auto-Completion & Smart Suggestions
+- **[DESIGN_MOCKUPS.md](DESIGN_MOCKUPS.md)** - Design System & UI-Dokumentation
 
 ## 🎯 Roadmap
 
@@ -228,6 +195,44 @@ HaushaltsPlaner/
 - Überprüfe deine Internetverbindung
 - Ziehe die Listen nach unten für manuelles Aktualisieren
 - CloudKit kann bei vielen Daten etwas Zeit benötigen
+
+## 📦 Projektstruktur
+
+```
+HaushaltsPlaner/
+├── HaushaltsPlaner.xcodeproj
+├── HaushaltsPlaner/
+│   ├── HaushaltsPlaner.swift      # App Entry Point
+│   ├── ContentView.swift          # Main Tab View
+│   ├── Models/
+│   │   ├── Task.swift             # Aufgaben-Modell
+│   │   ├── ShoppingItem.swift     # Einkaufsartikel-Modell
+│   │   └── FamilyMember.swift     # Familienmitglieder-Modell
+│   ├── Views/
+│   │   ├── TasksView.swift        # Aufgaben-Übersicht
+│   │   ├── TaskRowView.swift      # Aufgaben-Zelle
+│   │   ├── AddTaskView.swift      # Aufgabe hinzufügen
+│   │   ├── ShoppingView.swift     # Einkaufsliste
+│   │   ├── ShoppingItemRowView.swift
+│   │   ├── AddShoppingItemView.swift
+│   │   └── FamilyView.swift       # Familien-Verwaltung
+│   ├── Services/
+│   │   ├── CloudKitManager.swift  # CloudKit Service
+│   │   └── AutoCompletionManager.swift
+│   ├── Intents/
+│   │   ├── IntentHandler.swift    # Siri Intent Handler
+│   │   └── Intents.intentdefinition
+│   └── Resources/
+│       └── Assets.xcassets
+├── Design/
+│   └── Mockups/                   # UI Mockups
+├── README.md                       # Diese Datei
+├── QUICKSTART.md
+├── CLOUDKIT_SETUP.md
+├── SIRI_SHORTCUTS.md
+├── AUTO_COMPLETION.md
+└── DESIGN_MOCKUPS.md
+```
 
 ## 📄 Lizenz
 
