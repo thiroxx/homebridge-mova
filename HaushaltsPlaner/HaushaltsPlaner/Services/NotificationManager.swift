@@ -287,7 +287,72 @@ class NotificationManager: NSObject, ObservableObject {
         UNUserNotificationCenter.current().add(request)
     }
     
-    // MARK: - Helper Methods
+    // MARK: - Location Reminders
+    
+    func scheduleLocationReminderNotification(storeName: String, itemCount: Int) {
+        guard isAuthorized else { return }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "📍 Du bist in der Nähe!"
+        content.body = "\(storeName) - \(itemCount) Artikel auf deiner Einkaufsliste"
+        content.sound = .default
+        content.badge = NSNumber(value: itemCount)
+        content.interruptionLevel = .timeSensitive
+        content.categoryIdentifier = "LOCATION_REMINDER"
+        content.userInfo = ["type": "location_reminder", "storeName": storeName]
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: "location_\(storeName)",
+            content: content,
+            trigger: trigger
+        )
+        
+        UNUserNotificationCenter.current().add(request)
+    }
+    
+    // MARK: - AI Insights Notifications
+    
+    func scheduleAIInsightNotification(insight: AIInsight) {
+        guard isAuthorized else { return }
+        
+        let content = UNMutableNotificationContent()
+        
+        switch insight.type {
+        case .shopping:
+            content.title = "🤖 Smart Vorschlag"
+            content.body = insight.message
+        case .task:
+            content.title = "💡 Aufgaben-Tipp"
+            content.body = insight.message
+        case .weather:
+            content.title = "🌤️ Wetter-Tipp"
+            content.body = insight.message
+        case .pattern:
+            content.title = "📊 Muster erkannt"
+            content.body = insight.message
+        case .seasonal:
+            content.title = "🍂 Saisonaler Tipp"
+            content.body = insight.message
+        }
+        
+        content.sound = .default
+        content.categoryIdentifier = "AI_INSIGHT"
+        content.userInfo = ["type": "ai_insight"]
+        
+        if insight.priority == .urgent || insight.priority == .high {
+            content.interruptionLevel = .timeSensitive
+        }
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: "insight_\(insight.id)",
+            content: content,
+            trigger: trigger
+        )
+        
+        UNUserNotificationCenter.current().add(request)
+    }
     
     func cancelNotification(identifier: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
