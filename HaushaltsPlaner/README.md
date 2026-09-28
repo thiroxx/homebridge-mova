@@ -56,6 +56,21 @@ Siehe [QUICKSTART.md](QUICKSTART.md) für detaillierte Setup-Anweisungen.
 - 🎯 Smart Grouping & Badge Count
 
 Siehe [NOTIFICATIONS.md](NOTIFICATIONS.md) für Details!
+
+### 🔄 Wiederkehrende Aufgaben & KI-Intervalle (NEU!)
+- 🤖 **KI analysiert deine Gewohnheiten** und schlägt optimale Intervalle vor
+- 📊 **50+ vordefinierte Haushaltsaufgaben** mit Best-Practice Intervallen
+- ✨ **Automatische Erstellung** von wiederkehrenden Aufgaben
+- 🎯 **Smart Vorschläge**: "Du putzt zu oft/selten" mit Begründungen
+- 📈 **Konfidenz-Scores**: Datenbasierte Empfehlungen
+- ⏱️ **Flexible Intervalle**: Täglich bis Jährlich
+- 🏷️ **Kategorien**: Küche, Bad, Wohnbereich, Schlafzimmer, Außen, Wartung
+- ⏸️ **Pausieren & Aktivieren**: Volle Kontrolle über Serien
+- 🔗 **CloudKit Integration**: Automatisch mit Familie geteilt
+
+Siehe [RECURRING_TASKS.md](RECURRING_TASKS.md) für Details!
+
+### 🗣️ Siri & HomePod Integration
 - 🗣️ Aufgaben per Sprachbefehl hinzufügen
   - "Hey Siri, füge eine Aufgabe hinzu"
   - "Hey Siri, füge 'Müll rausbringen' zur Aufgabenliste hinzu"
@@ -173,14 +188,25 @@ Vollständige Dokumentation verfügbar:
 - **[CLOUDKIT_SETUP.md](CLOUDKIT_SETUP.md)** - Detaillierte CloudKit-Konfiguration
 - **[SIRI_SHORTCUTS.md](SIRI_SHORTCUTS.md)** - HomePod & Siri Integration
 - **[AUTO_COMPLETION.md](AUTO_COMPLETION.md)** - Auto-Completion & Smart Suggestions
+- **[NOTIFICATIONS.md](NOTIFICATIONS.md)** - Push-Benachrichtigungen & Smart Alerts
+- **[ADVANCED_FEATURES.md](ADVANCED_FEATURES.md)** - Geo-Fencing & AI Smart Suggestions
+- **[RECURRING_TASKS.md](RECURRING_TASKS.md)** - Wiederkehrende Aufgaben & KI-Intervalle
 - **[DESIGN_MOCKUPS.md](DESIGN_MOCKUPS.md)** - Design System & UI-Dokumentation
 
 ## 🎯 Roadmap
 
+### ✅ Implementiert
+- [x] iCloud Family Sharing
+- [x] Siri & HomePod Integration
+- [x] Push-Benachrichtigungen
+- [x] Auto-Completion
+- [x] Geo-Fencing Smart Reminders
+- [x] AI Smart Suggestions
+- [x] Wiederkehrende Aufgaben mit KI-Intervallen
+
 ### Geplante Features
 - [ ] Widget für Home Screen
 - [ ] Apple Watch App
-- [ ] Wiederkehrende Aufgaben
 - [ ] Aufgaben-Kategorien
 - [ ] Kalender-Integration
 - [ ] Benachrichtigungen für Fälligkeitsdaten

@@ -9,10 +9,15 @@ class AIInsightsManager: ObservableObject {
     @Published var insights: [AIInsight] = []
     @Published var shoppingPredictions: [ShoppingPrediction] = []
     @Published var taskSuggestions: [TaskSuggestion] = []
+    @Published var taskCompletions: [TaskCompletionRecord] = []
     
     private let userDefaults = UserDefaults.standard
     private let purchaseHistoryKey = "purchaseHistory"
     private let taskCompletionHistoryKey = "taskCompletionHistory"
+    
+    init() {
+        loadTaskCompletions()
+    }
     
     // MARK: - Shopping Predictions
     
@@ -408,6 +413,7 @@ class AIInsightsManager: ObservableObject {
         }
         
         saveTaskCompletionHistory(history)
+        taskCompletions = history
     }
     
     private func loadPurchaseHistory() -> [PurchaseRecord] {
@@ -436,6 +442,10 @@ class AIInsightsManager: ObservableObject {
         if let data = try? JSONEncoder().encode(history) {
             userDefaults.set(data, forKey: taskCompletionHistoryKey)
         }
+    }
+    
+    private func loadTaskCompletions() {
+        taskCompletions = loadTaskCompletionHistory()
     }
 }
 

@@ -34,11 +34,17 @@ struct ContentView: View {
                 .tag(3)
                 .badge(insightsCount)
             
+            RecurringTasksView()
+                .tabItem {
+                    Label("Serien", systemImage: "arrow.clockwise")
+                }
+                .tag(4)
+            
             FamilyView()
                 .tabItem {
                     Label("Familie", systemImage: "person.3.fill")
                 }
-                .tag(4)
+                .tag(5)
         }
         .accentColor(.blue)
         .alert("iCloud Fehler", isPresented: $cloudKitManager.showError) {
@@ -56,7 +62,7 @@ struct ContentView: View {
             selectedTab = 1
         }
         .onReceive(NotificationCenter.default.publisher(for: .navigateToFamily)) { _ in
-            selectedTab = 4
+            selectedTab = 5
         }
     }
     
@@ -83,6 +89,22 @@ struct ContentView: View {
                 location: locationManager.currentLocation
             )
             aiManager.analyzeShoppingItems(cloudKitManager.shoppingItems)
+        }
+        
+        // Recurring Tasks Timer - prüfe täglich auf fällige Aufgaben
+        Timer.scheduledTimer(withTimeInterval: 3600, repeats: true) { _ in
+            Task {
+                await RecurringTasksManager.shared.checkAndCreateDueTasks(
+                    cloudKitManager: self.cloudKitManager
+                )
+            }
+        }
+        
+        // Initiale Prüfung
+        Task {
+            await RecurringTasksManager.shared.checkAndCreateDueTasks(
+                cloudKitManager: cloudKitManager
+            )
         }
     }
 }

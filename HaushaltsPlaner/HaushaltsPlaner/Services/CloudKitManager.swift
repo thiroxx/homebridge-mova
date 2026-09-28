@@ -200,6 +200,18 @@ class CloudKitManager: ObservableObject {
                     task: task,
                     completedBy: completedByName
                 )
+                
+                // Aufgabe für AI und Recurring Tasks aufzeichnen
+                AIInsightsManager.shared.recordTaskCompletion(task: task)
+                
+                // Prüfe ob diese Aufgabe Teil einer Serie ist
+                let recurringManager = RecurringTasksManager.shared
+                if let recurringTask = recurringManager.recurringTasks.first(where: { 
+                    $0.title == task.title && $0.isActive 
+                }) {
+                    // Plane nächste Occurrence
+                    recurringManager.scheduleNextOccurrence(for: recurringTask)
+                }
             }
         } catch {
             await handleError(error)
