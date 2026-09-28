@@ -172,14 +172,18 @@ class CloudKitManager: ObservableObject {
             _ = try await sharedDatabase.save(record)
             await fetchTasks()
             
-            // Benachrichtigung wenn Aufgabe zugewiesen wurde
+            // Benachrichtigung NUR für den zugewiesenen Benutzer
             if let assignedTo = task.assignedTo,
-               assignedTo != currentUser?.userRecordID {
+               assignedTo == currentUser?.userRecordID,
+               task.createdBy != currentUser?.userRecordID {
+                // Nur wenn ich die Aufgabe zugewiesen bekommen habe (nicht selbst erstellt)
                 NotificationManager.shared.scheduleTaskAssignedNotification(task: task)
             }
             
-            // Benachrichtigung für Fälligkeitsdatum
-            if task.dueDate != nil {
+            // Benachrichtigung für Fälligkeitsdatum NUR für zugewiesenen Benutzer
+            if let dueDate = task.dueDate,
+               let assignedTo = task.assignedTo,
+               assignedTo == currentUser?.userRecordID {
                 NotificationManager.shared.scheduleTaskDueNotification(task: task)
             }
         } catch {

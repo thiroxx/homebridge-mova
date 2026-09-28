@@ -2,6 +2,42 @@
 
 Die Haushaltsplaner-App unterstützt intelligente Push-Benachrichtigungen, um dich über wichtige Ereignisse zu informieren.
 
+## 🎯 Wer erhält welche Benachrichtigungen?
+
+### 📋 Aufgaben
+**Zugewiesener Benutzer erhält:**
+- ✅ "Neue Zuweisung" - wenn dir jemand eine Aufgabe zuweist
+- ✅ "Fälligkeitsdatum" - am Tag der Fälligkeit (9:00 Uhr)
+- ✅ "1 Tag vorher" - Erinnerung einen Tag vor Fälligkeit
+
+**Alle anderen Familienmitglieder:**
+- ❌ Keine Benachrichtigung bei Aufgaben-Zuweisung
+- ❌ Keine Fälligkeits-Erinnerungen
+
+**Ersteller der Aufgabe:**
+- ✅ "Aufgabe erledigt" - wenn die zugewiesene Person sie erledigt
+
+**Wichtig:** 
+- Wenn du dir selbst eine Aufgabe zuweist → **keine** Benachrichtigung
+- Nur bei Zuweisung **an andere** Person → diese Person wird benachrichtigt
+
+### 🛒 Einkaufsliste
+**Alle Familienmitglieder außer Ersteller:**
+- ✅ "Neuer Artikel hinzugefügt"
+- ✅ "Dringender Artikel" (Time-Sensitive)
+
+**Alle Familienmitglieder:**
+- ✅ "X Artikel gekauft" - bei Einkauf durch jemanden
+- ✅ "X dringende Artikel" - Übersicht
+
+### 👨‍👩‍👧‍👦 Familie
+**Alle Familienmitglieder:**
+- ✅ "X ist beigetreten" - neues Mitglied
+
+### 📊 Tägliche Zusammenfassung
+**Alle aktiven Benutzer:**
+- ✅ Morgen-Übersicht (8:00 Uhr)
+
 ## ✨ Verfügbare Benachrichtigungen
 
 ### 📋 Aufgaben-Benachrichtigungen
@@ -328,6 +364,54 @@ Einstellungen → Allgemein → Hintergrundaktualisierung
 - Öffne die App
 - Badge wird automatisch aktualisiert
 - Oder: Wische App im App-Switcher weg und öffne neu
+
+---
+
+## 💡 Beispiel-Szenarien
+
+### Szenario 1: Aufgabe zuweisen
+
+**Familie:**
+- Lisa (Ersteller)
+- Max (Zugewiesener)
+- Tim (weiteres Mitglied)
+
+**Ablauf:**
+1. Lisa erstellt Aufgabe "Müll rausbringen" und weist sie **Max** zu
+2. **Max erhält:** 📱 "Lisa hat dir 'Müll rausbringen' zugewiesen"
+3. **Tim erhält:** ❌ Keine Benachrichtigung
+4. **Lisa erhält:** ❌ Keine Benachrichtigung (sie hat sie erstellt)
+
+**Am Fälligkeitstag (9:00 Uhr):**
+- **Max erhält:** 📱 "Aufgabe 'Müll rausbringen' ist heute fällig"
+- **Lisa & Tim:** ❌ Keine Benachrichtigung
+
+**Wenn Max die Aufgabe erledigt:**
+- **Lisa erhält:** 📱 "Max hat 'Müll rausbringen' erledigt ✓"
+- **Tim erhält:** ❌ Keine Benachrichtigung
+- **Max erhält:** ❌ Keine Benachrichtigung
+
+### Szenario 2: Einkaufsliste
+
+**Familie:**
+- Lisa (fügt Artikel hinzu)
+- Max, Tim (weitere Mitglieder)
+
+**Ablauf:**
+1. Lisa fügt "Milch" (Dringend) zur Liste hinzu
+2. **Max erhält:** 📱 "Lisa hat 'Milch' zur Liste hinzugefügt (Dringend)" (Time-Sensitive)
+3. **Tim erhält:** 📱 "Lisa hat 'Milch' zur Liste hinzugefügt (Dringend)" (Time-Sensitive)
+4. **Lisa erhält:** ❌ Keine Benachrichtigung (sie hat es hinzugefügt)
+
+**Wenn Max 3 Artikel kauft:**
+- **Alle (Lisa, Tim, Max):** 📱 "Max hat 3 Artikel gekauft ✓"
+
+### Szenario 3: Selbst-Zuweisung
+
+**Ablauf:**
+1. Lisa erstellt Aufgabe "Fenster putzen" und weist sie **sich selbst** zu
+2. **Lisa erhält:** ❌ Keine Benachrichtigung (Selbst-Zuweisung)
+3. **Fälligkeits-Erinnerung:** ✅ Lisa erhält trotzdem Erinnerungen am Fälligkeitstag
 
 ---
 
