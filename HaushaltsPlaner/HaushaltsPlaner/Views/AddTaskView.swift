@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AddTaskView: View {
     @EnvironmentObject var cloudKitManager: CloudKitManager
+    @StateObject private var autoCompletion = AutoCompletionManager.shared
     @Environment(\.dismiss) var dismiss
     
     @State private var title = ""
@@ -10,13 +11,53 @@ struct AddTaskView: View {
     @State private var selectedMember: FamilyMember?
     @State private var dueDate = Date()
     @State private var hasDueDate = false
+    @State private var showingSuggestions = false
+    
+    var filteredSuggestions: [String] {
+        autoCompletion.getTaskSuggestions(for: title)
+    }
     
     var body: some View {
         NavigationView {
             Form {
                 Section("Aufgabendetails") {
-                    TextField("Titel", text: $title)
-                        .font(.headline)
+                    VStack(alignment: .leading, spacing: 0) {
+                        TextField("Titel", text: $title)
+                            .font(.headline)
+                            .onChange(of: title) { _, newValue in
+                                showingSuggestions = !newValue.isEmpty
+                            }
+                        
+                        if showingSuggestions && !filteredSuggestions.isEmpty {
+                            VStack(alignment: .leading, spacing: 0) {
+                                Divider()
+                                    .padding(.vertical, 8)
+                                
+                                ForEach(filteredSuggestions, id: \.self) { suggestion in
+                                    Button(action: {
+                                        title = suggestion
+                                        showingSuggestions = false
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "clock.arrow.circlepath")
+                                                .foregroundColor(.secondary)
+                                                .font(.caption)
+                                            Text(suggestion)
+                                                .foregroundColor(.primary)
+                                            Spacer()
+                                        }
+                                        .padding(.vertical, 6)
+                                    }
+                                    .buttonStyle(.plain)
+                                    
+                                    if suggestion != filteredSuggestions.last {
+                                        Divider()
+                                    }
+                                }
+                            }
+                            .padding(.top, 4)
+                        }
+                    }
                     
                     ZStack(alignment: .topLeading) {
                         if description.isEmpty {
@@ -62,6 +103,29 @@ struct AddTaskView: View {
                         DatePicker("Fällig am", selection: $dueDate, displayedComponents: [.date])
                     }
                 }
+                
+                if !autoCompletion.taskSuggestions.isEmpty {
+                    Section("Häufig verwendet") {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                ForEach(Array(autoCompletion.getSmartTaskSuggestions().prefix(5)), id: \.self) { suggestion in
+                                    Button(action: {
+                                        title = suggestion
+                                        showingSuggestions = false
+                                    }) {
+                                        Text(suggestion)
+                                            .font(.subheadline)
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 6)
+                                            .background(Color(.systemGray6))
+                                            .cornerRadius(16)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                        }
+                    }
+                }
             }
             .navigationTitle("Neue Aufgabe")
             .navigationBarTitleDisplayMode(.inline)
@@ -84,6 +148,8 @@ struct AddTaskView: View {
     
     private func addTask() {
         guard let currentUser = cloudKitManager.currentUser else { return }
+        
+        autoCompletion.addTaskToHistory(title)
         
         let task = HouseholdTask(
             title: title,

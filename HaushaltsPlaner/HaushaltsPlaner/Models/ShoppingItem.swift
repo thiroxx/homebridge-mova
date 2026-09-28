@@ -1,11 +1,34 @@
 import Foundation
 import CloudKit
 
+enum ShoppingPriority: String, Codable, CaseIterable {
+    case low = "Normal"
+    case medium = "Wichtig"
+    case high = "Dringend"
+    
+    var color: String {
+        switch self {
+        case .low: return "gray"
+        case .medium: return "orange"
+        case .high: return "red"
+        }
+    }
+    
+    var sortOrder: Int {
+        switch self {
+        case .high: return 0
+        case .medium: return 1
+        case .low: return 2
+        }
+    }
+}
+
 struct ShoppingItem: Identifiable, Codable {
     var id: String
     var name: String
     var quantity: String
     var category: ShoppingCategory
+    var priority: ShoppingPriority
     var isPurchased: Bool
     var addedBy: String
     var addedByName: String?
@@ -18,6 +41,7 @@ struct ShoppingItem: Identifiable, Codable {
         name: String,
         quantity: String = "1",
         category: ShoppingCategory = .other,
+        priority: ShoppingPriority = .low,
         isPurchased: Bool = false,
         addedBy: String,
         addedByName: String? = nil,
@@ -29,6 +53,7 @@ struct ShoppingItem: Identifiable, Codable {
         self.name = name
         self.quantity = quantity
         self.category = category
+        self.priority = priority
         self.isPurchased = isPurchased
         self.addedBy = addedBy
         self.addedByName = addedByName
@@ -50,6 +75,7 @@ struct ShoppingItem: Identifiable, Codable {
         record["name"] = name as CKRecordValue
         record["quantity"] = quantity as CKRecordValue
         record["category"] = category.rawValue as CKRecordValue
+        record["priority"] = priority.rawValue as CKRecordValue
         record["isPurchased"] = (isPurchased ? 1 : 0) as CKRecordValue
         record["addedBy"] = addedBy as CKRecordValue
         record["addedAt"] = addedAt as CKRecordValue
@@ -76,11 +102,15 @@ struct ShoppingItem: Identifiable, Codable {
             return nil
         }
         
+        let priorityRaw = record["priority"] as? String
+        let priority = priorityRaw.flatMap { ShoppingPriority(rawValue: $0) } ?? .low
+        
         return ShoppingItem(
             id: id,
             name: name,
             quantity: quantity,
             category: category,
+            priority: priority,
             isPurchased: isPurchasedInt == 1,
             addedBy: addedBy,
             addedByName: record["addedByName"] as? String,

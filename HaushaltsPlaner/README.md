@@ -11,6 +11,7 @@ Eine moderne iOS-App für gemeinsame Haushaltsplanung mit iCloud Family Sharing,
 - 📅 Fälligkeitsdaten setzen
 - 🔍 Filtern nach Status (Alle, Aktiv, Erledigt, Meine Aufgaben)
 - ✅ Aufgaben als erledigt markieren
+- 🤖 **Auto-Completion** - Intelligente Vorschläge basierend auf Historie
 
 ### 🛒 Einkaufsliste
 - 🛍️ Artikel zur Einkaufsliste hinzufügen
@@ -18,6 +19,8 @@ Eine moderne iOS-App für gemeinsame Haushaltsplanung mit iCloud Family Sharing,
 - 📝 Mengenangaben für jeden Artikel
 - ✓ Artikel als gekauft markieren
 - 🗂️ Nach Kategorien gruppiert und filtern
+- 🎯 **NEU: Prioritäten** - Normal, Wichtig, Dringend
+- 🤖 **Auto-Completion** - Lernt von deinen Einkäufen + 100+ vordefinierte Artikel
 
 ### 👨‍👩‍👧‍👦 Family Sharing
 - ☁️ iCloud CloudKit Integration

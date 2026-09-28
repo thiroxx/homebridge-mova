@@ -14,10 +14,16 @@ struct ShoppingItemRowView: View {
             .buttonStyle(.plain)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(item.name)
-                    .font(.headline)
-                    .foregroundColor(item.isPurchased ? .secondary : .primary)
-                    .strikethrough(item.isPurchased)
+                HStack(spacing: 8) {
+                    Text(item.name)
+                        .font(.headline)
+                        .foregroundColor(item.isPurchased ? .secondary : .primary)
+                        .strikethrough(item.isPurchased)
+                    
+                    if item.priority != .low && !item.isPurchased {
+                        ShoppingPriorityBadge(priority: item.priority)
+                    }
+                }
                 
                 HStack(spacing: 8) {
                     Text(item.quantity)
@@ -51,11 +57,36 @@ struct ShoppingItemRowView: View {
     }
 }
 
+struct ShoppingPriorityBadge: View {
+    let priority: ShoppingPriority
+    
+    var body: some View {
+        Text(priority.rawValue)
+            .font(.caption2)
+            .fontWeight(.semibold)
+            .foregroundColor(.white)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background(priorityColor)
+            .cornerRadius(4)
+    }
+    
+    private var priorityColor: Color {
+        switch priority.color {
+        case "gray": return .gray
+        case "orange": return .orange
+        case "red": return .red
+        default: return .gray
+        }
+    }
+}
+
 #Preview {
     ShoppingItemRowView(item: ShoppingItem(
         name: "Milch",
         quantity: "2L",
         category: .groceries,
+        priority: .high,
         addedBy: "user123",
         addedByName: "Max"
     ))

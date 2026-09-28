@@ -17,7 +17,16 @@ struct ShoppingView: View {
         let grouped = Dictionary(grouping: items) { $0.category }
         return ShoppingCategory.allCases.compactMap { category in
             if let items = grouped[category], !items.isEmpty {
-                return (category, items.sorted { !$0.isPurchased && $1.isPurchased })
+                let sortedItems = items.sorted { item1, item2 in
+                    if item1.isPurchased != item2.isPurchased {
+                        return !item1.isPurchased
+                    }
+                    if item1.priority.sortOrder != item2.priority.sortOrder {
+                        return item1.priority.sortOrder < item2.priority.sortOrder
+                    }
+                    return item1.addedAt > item2.addedAt
+                }
+                return (category, sortedItems)
             }
             return nil
         }
