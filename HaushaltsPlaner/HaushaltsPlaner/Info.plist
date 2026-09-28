@@ -75,5 +75,7 @@
 	<array/>
 	<key>NSSiriUsageDescription</key>
 	<string>Haushaltsplaner nutzt Siri, um Aufgaben und Einkaufsartikel per Sprachbefehl hinzuzufügen.</string>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Haushaltsplaner sendet Benachrichtigungen für neue Aufgaben, Fälligkeitsdaten und Einkaufsartikel.</string>
 </dict>
 </plist>

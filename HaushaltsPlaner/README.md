@@ -44,7 +44,18 @@ Siehe [QUICKSTART.md](QUICKSTART.md) für detaillierte Setup-Anweisungen.
 - 🎨 Farbcodierte Familienmitglieder
 - 📤 Einfaches Teilen per iCloud-Link
 
-### 🎙️ Siri & HomePod Integration
+### 🔔 Smart Notifications (NEU!)
+- 📬 Neue Aufgaben zugewiesen
+- ⏰ Fälligkeitsdatum-Erinnerungen
+- ✅ Aufgabe erledigt Benachrichtigungen
+- 🛒 Neue Einkaufsartikel
+- 🔴 Dringende Artikel-Warnungen
+- 👥 Familienmitglied beigetreten
+- 📊 Tägliche Zusammenfassung (8:00 Uhr)
+- ⚡ Time-Sensitive für dringende Items
+- 🎯 Smart Grouping & Badge Count
+
+Siehe [NOTIFICATIONS.md](NOTIFICATIONS.md) für Details!
 - 🗣️ Aufgaben per Sprachbefehl hinzufügen
   - "Hey Siri, füge eine Aufgabe hinzu"
   - "Hey Siri, füge 'Müll rausbringen' zur Aufgabenliste hinzu"

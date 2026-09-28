@@ -171,6 +171,17 @@ class CloudKitManager: ObservableObject {
         do {
             _ = try await sharedDatabase.save(record)
             await fetchTasks()
+            
+            // Benachrichtigung wenn Aufgabe zugewiesen wurde
+            if let assignedTo = task.assignedTo,
+               assignedTo != currentUser?.userRecordID {
+                NotificationManager.shared.scheduleTaskAssignedNotification(task: task)
+            }
+            
+            // Benachrichtigung für Fälligkeitsdatum
+            if task.dueDate != nil {
+                NotificationManager.shared.scheduleTaskDueNotification(task: task)
+            }
         } catch {
             await handleError(error)
         }
@@ -182,6 +193,14 @@ class CloudKitManager: ObservableObject {
         do {
             _ = try await sharedDatabase.save(record)
             await fetchTasks()
+            
+            // Benachrichtigung wenn Aufgabe erledigt wurde
+            if task.isCompleted, let completedByName = task.createdByName {
+                NotificationManager.shared.scheduleTaskCompletedNotification(
+                    task: task,
+                    completedBy: completedByName
+                )
+            }
         } catch {
             await handleError(error)
         }
@@ -205,6 +224,20 @@ class CloudKitManager: ObservableObject {
         do {
             _ = try await sharedDatabase.save(record)
             await fetchShoppingItems()
+            
+            // Benachrichtigung für neuen Einkaufsartikel
+            if item.addedBy != currentUser?.userRecordID {
+                NotificationManager.shared.scheduleShoppingItemAddedNotification(item: item)
+            }
+            
+            // Prüfe dringende Artikel
+            let urgentCount = shoppingItems.filter { 
+                $0.priority == .high && !$0.isPurchased 
+            }.count
+            
+            if urgentCount > 0 {
+                NotificationManager.shared.scheduleUrgentShoppingItemsNotification(count: urgentCount)
+            }
         } catch {
             await handleError(error)
         }
