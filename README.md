@@ -1,101 +1,186 @@
-# Repository Übersicht
+# Homebridge MOVA Plugin
 
-Dieses Repository enthält **zwei separate Projekte**:
+Homebridge-Plugin für MOVA Staubsauger-Roboter in Apple Home mit nativer Matter-Integration.
+
+[![npm version](https://badge.fury.io/js/homebridge-mova.svg)](https://badge.fury.io/js/homebridge-mova)
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+
+---
+
+## Features
+
+- 🏠 **Native Matter Integration** - Direkt in Apple Home
+- 🗺️ **Raumauswahl** - Gezielt Räume reinigen
+- ⚙️ **Cleaning Presets** - Vordefinierte Reinigungsmodi
+- 🔄 **Automatische Synchronisation** - Status-Updates in Echtzeit
+- 📱 **Apple Home kompatibel** - Volle HomeKit-Integration
+- 🎙️ **Siri-Steuerung** - "Hey Siri, starte den Staubsauger"
+
+---
+
+## Installation
+
+### Via Homebridge Config UI X (Empfohlen)
+
+1. Suche nach `homebridge-mova` in der Plugin-Suche
+2. Klicke auf "Install"
+3. Konfiguriere das Plugin über die UI
+4. Starte Homebridge neu
+
+### Via npm
+
+```bash
+npm install -g homebridge-mova
+```
+
+---
+
+## Konfiguration
+
+Füge in deiner Homebridge `config.json` folgendes hinzu:
+
+```json
+{
+    "platforms": [
+        {
+            "platform": "MOVA",
+            "name": "MOVA Vacuum",
+            "ip": "192.168.1.XXX",
+            "port": 8080,
+            "updateInterval": 5000
+        }
+    ]
+}
+```
+
+### Konfigurationsoptionen
+
+| Option | Typ | Standard | Beschreibung |
+|--------|-----|----------|--------------|
+| `platform` | string | - | Muss "MOVA" sein (erforderlich) |
+| `name` | string | - | Name des Geräts (erforderlich) |
+| `ip` | string | - | IP-Adresse des MOVA-Roboters (erforderlich) |
+| `port` | number | 8080 | Port des MOVA-Roboters |
+| `updateInterval` | number | 5000 | Status-Update Intervall in ms |
+
+---
+
+## Verwendung
+
+Nach der Installation und Konfiguration:
+
+1. **Apple Home App öffnen**
+2. **"+" → Gerät hinzufügen**
+3. **MOVA Vacuum** sollte automatisch erkannt werden
+4. **Hinzufügen** und fertig!
+
+### Siri-Befehle
+
+- "Hey Siri, starte den Staubsauger"
+- "Hey Siri, pausiere den Staubsauger"
+- "Hey Siri, schicke den Staubsauger zur Ladestation"
+- "Hey Siri, reinige das Wohnzimmer"
+
+---
+
+## Entwicklung
+
+### Setup
+
+```bash
+# Repository klonen
+git clone https://github.com/thiroxx/homebridge-mova.git
+cd homebridge-mova
+
+# Dependencies installieren
+npm install
+
+# TypeScript kompilieren
+npm run build
+
+# Homebridge starten
+homebridge -D
+```
+
+### Projekt-Struktur
+
+```
+homebridge-mova/
+├── src/
+│   ├── platform.ts         # Haupt-Platform
+│   ├── accessory.ts        # Vacuum Accessory
+│   └── settings.ts         # Konfiguration
+├── test/                   # Tests
+├── homebridge-ui/          # Config UI
+├── config.schema.json      # Config Schema
+└── package.json
+```
+
+### Tests
+
+```bash
+npm test
+```
+
+---
+
+## Fehlerbehebung
+
+### Gerät wird nicht gefunden
+
+- Prüfe IP-Adresse des MOVA-Roboters
+- Stelle sicher, dass Homebridge und Roboter im selben Netzwerk sind
+- Prüfe Firewall-Einstellungen
+
+### Status wird nicht aktualisiert
+
+- Erhöhe `updateInterval` in der Konfiguration
+- Prüfe Logs: `homebridge -D`
+- Starte Homebridge neu
+
+### Weitere Hilfe
+
+Für weitere Hilfe:
+- 📖 [Wiki](https://github.com/thiroxx/homebridge-mova/wiki)
+- 🐛 [Issues](https://github.com/thiroxx/homebridge-mova/issues)
+
+---
+
+## Technologie
+
+- **Node.js** 22+
+- **Homebridge** 2.0+
+- **TypeScript** 5.x
+- **Matter Support**
+
+---
+
+## Changelog
+
+Siehe [CHANGELOG.md](CHANGELOG.md) für Details zu den Releases.
+
+---
+
+## Lizenz
+
+MIT License - siehe [LICENSE](LICENSE)
 
 ---
 
 ## 🏠 Haushaltsplaner iOS App
 
-Eine moderne iOS-App für gemeinsame Haushaltsplanung mit iCloud Family Sharing.
+Die **Haushaltsplaner iOS App** (die vorher in diesem Repository war) wurde in ein **eigenes Repository** verschoben:
 
-**📂 Verzeichnis:** [`HaushaltsPlaner/`](HaushaltsPlaner/)
+**➡️ [github.com/thiroxx/haushaltsplaner-ios](https://github.com/thiroxx/haushaltsplaner-ios)**
 
-### Features
-- 📋 Aufgabenverwaltung mit Prioritäten
-- 🛒 Intelligente Einkaufsliste  
-- 👨‍👩‍👧‍👦 iCloud Family Sharing
-- 🎙️ Siri & HomePod Integration
-- 🤖 Auto-Completion & Smart Suggestions
-
-### Dokumentation
-- [README](HaushaltsPlaner/README.md) - Vollständige Übersicht
-- [Quickstart](HaushaltsPlaner/QUICKSTART.md) - 5-Minuten Setup
-- [CloudKit Setup](HaushaltsPlaner/CLOUDKIT_SETUP.md)
-- [Siri Integration](HaushaltsPlaner/SIRI_SHORTCUTS.md)
-- [Auto-Completion](HaushaltsPlaner/AUTO_COMPLETION.md)
-- [Design Mockups](HaushaltsPlaner/DESIGN_MOCKUPS.md)
-
-### Technologie
-- SwiftUI (iOS 17.0+)
-- CloudKit
-- SiriKit & Intents
-- Modern Swift Concurrency
-
-**➡️ [Zur iOS App Dokumentation](HaushaltsPlaner/README.md)**
+Die iOS-App ist eine separate, eigenständige Anwendung für Haushaltsplanung mit iCloud Family Sharing und hat **keine Verbindung** zum Homebridge MOVA Plugin.
 
 ---
 
-## 🤖 Homebridge MOVA Plugin
+## Dokumentation
 
-Homebridge-Plugin für MOVA Staubsauger-Roboter in Apple Home.
-
-**📂 Verzeichnis:** Root-Level (Node.js Projekt)
-
-### Features
-- Native Matter Integration
-- Raumauswahl
-- Cleaning Presets
-- Apple Home kompatibel
-
-### Dokumentation
-- [README](README-HOMEBRIDGE.md) - Plugin Dokumentation
-- [Installation & Konfiguration](README-HOMEBRIDGE.md#installation)
-
-### Technologie
-- Node.js 22+
-- Homebridge 2.0+
-- Matter Support
-
-**➡️ [Zur Homebridge Dokumentation](README-HOMEBRIDGE.md)**
+Vollständige Plugin-Dokumentation: [README-HOMEBRIDGE.md](README-HOMEBRIDGE.md)
 
 ---
 
-## 🔀 Separate Repositories (Empfohlen)
-
-Diese Projekte sind technologisch völlig unterschiedlich und sollten idealerweise in separate Repositories aufgeteilt werden:
-
-### Option 1: Neue Repositories erstellen
-
-```bash
-# iOS App in eigenes Repository
-git subtree split -P HaushaltsPlaner -b haushaltsplaner-app
-git push <new-ios-repo-url> haushaltsplaner-app:main
-
-# Homebridge Plugin bleibt hier
-# HaushaltsPlaner/ Verzeichnis entfernen
-```
-
-### Option 2: Aktueller Zustand
-
-Beide Projekte bleiben im gleichen Repository, sind aber klar getrennt:
-- **Homebridge:** Root-Level (package.json, src/, etc.)
-- **iOS App:** `HaushaltsPlaner/` Verzeichnis
-
----
-
-## 📜 Lizenz
-
-- **iOS App:** MIT License (siehe [HaushaltsPlaner/](HaushaltsPlaner/))
-- **Homebridge Plugin:** MIT License (siehe [LICENSE](LICENSE))
-
----
-
-## 🤝 Beitragen
-
-Für Beiträge zu den jeweiligen Projekten siehe:
-- iOS App: `HaushaltsPlaner/` - CloudKit und SwiftUI
-- Homebridge: Root - Node.js und Homebridge APIs
-
----
-
-**Hinweis:** Diese Projekte haben keine technische Verbindung zueinander und können unabhängig verwendet werden.
+**Made with ❤️ for smart homes**
